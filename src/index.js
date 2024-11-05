@@ -3,8 +3,7 @@ const express = require('express')
 const logger = require('morgan')
 const bodyParser = require('body-parser')
 const cors = require('./config/cors.config');
-const { sequelize, user } = require('./config/database.config')
-const userData = require('./api/v1/models/dataUsetTest.json')
+const { sequelize } = require('./config/database.config')
 
 const { apiRouter } = require('./api/v1/routes')
 const error = require('./middlewares/error')
@@ -22,7 +21,7 @@ app.use((req, _, next) => {
 
 app.use(cors())
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', (req, res) => res.send('Welcome to the API for the HorizonHealth!'))
 
 app.use('/api/v1', apiRouter)
 
@@ -30,27 +29,7 @@ app.use(error.converter)
 app.use(error.notFound)
 app.use(error.handler)
 
-sequelize.sync({ force: false }).then(async () => {
-  // const users = await user.findAll();
-  // console.log(users.length);
-  
-  // if (users.length <= 0) {
-  //   userData.forEach(async element => {
-  //     const values = {
-  //       id: element.id,
-  //       name: element.name,
-  //       email: element.email,
-  //       username: element.username,
-  //       isPremium: element.isPremium,
-  //       last_join: new Date(element.last_join),
-  //       created_at: new Date(element.created_at),
-  //     updated_at: new Date(element.updated_at)
-  //     }
-  //     await user.create(values)
-  //   })
-  // }
-
-  
+sequelize.sync({ force: false }).then(async () => {  
   app.listen(port, (err) => {
     console.log(`server running on port ${port}, env ${env}`);
   })
