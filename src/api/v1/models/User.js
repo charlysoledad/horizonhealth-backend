@@ -14,6 +14,3 @@ module.exports = (sequelize, DataTypes) => {
 
   return User;
 }
-// (async () => {
-//   await sequelize.sync();
-// })
